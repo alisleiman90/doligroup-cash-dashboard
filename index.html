@@ -1,0 +1,489 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Doli Group Treasury</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  :root {
+    color-scheme: light;
+    --page: #f9f9f7;
+    --surface: #fcfcfb;
+    --surface-raised: #ffffff;
+    --ink: #0b0b0b;
+    --ink-secondary: #52514e;
+    --ink-muted: #898781;
+    --grid: #e1e0d9;
+    --baseline: #c3c2b7;
+    --border: rgba(11,11,11,0.10);
+    --accent: #1c3f5e;
+    --accent-soft: #e7edf2;
+    --cat-blue: #2a78d6;
+    --cat-orange: #eb6834;
+    --cat-aqua: #1baf7a;
+    --cat-magenta: #e87ba4;
+    --cat-green: #008300;
+    --cat-violet: #4a3aa7;
+    --negative: #d03b3b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --page: #0d0d0d;
+      --surface: #1a1a19;
+      --surface-raised: #202120;
+      --ink: #ffffff;
+      --ink-secondary: #c3c2b7;
+      --ink-muted: #8f8d86;
+      --grid: #2c2c2a;
+      --baseline: #383835;
+      --border: rgba(255,255,255,0.12);
+      --accent: #7aade0;
+      --accent-soft: rgba(122,173,224,0.14);
+      --cat-blue: #3987e5;
+      --cat-orange: #d95926;
+      --cat-aqua: #199e70;
+      --cat-magenta: #d55181;
+      --cat-green: #2fae2f;
+      --cat-violet: #9085e9;
+      --negative: #e66767;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --page: #0d0d0d;
+    --surface: #1a1a19;
+    --surface-raised: #202120;
+    --ink: #ffffff;
+    --ink-secondary: #c3c2b7;
+    --ink-muted: #8f8d86;
+    --grid: #2c2c2a;
+    --baseline: #383835;
+    --border: rgba(255,255,255,0.12);
+    --accent: #7aade0;
+    --accent-soft: rgba(122,173,224,0.14);
+    --cat-blue: #3987e5;
+    --cat-orange: #d95926;
+    --cat-aqua: #199e70;
+    --cat-magenta: #d55181;
+    --cat-green: #2fae2f;
+    --cat-violet: #9085e9;
+    --negative: #e66767;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--page);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    padding: 0 20px;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding-block: 32px 64px; }
+
+  h1, h2, h3 { font-family: "Fraunces", Georgia, serif; font-weight: 600; margin: 0; text-wrap: balance; }
+  .num { font-family: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace; font-variant-numeric: tabular-nums; }
+
+  .masthead {
+    display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between;
+    gap: 20px 32px; padding-bottom: 22px; border-bottom: 1px solid var(--border); margin-bottom: 28px;
+  }
+  .masthead-title .eyebrow {
+    font-size: 12px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 6px;
+  }
+  .masthead-title h1 { font-size: clamp(28px, 4vw, 38px); }
+  .masthead-title .sub { color: var(--ink-secondary); font-size: 14.5px; margin-top: 6px; }
+  .masthead-meta { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 14px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ink-secondary); }
+  .swatch { width: 10px; height: 10px; border-radius: 3px; flex: none; }
+  .refresh-note {
+    font-size: 12.5px; color: var(--ink-muted); background: var(--accent-soft); color: var(--accent);
+    border-radius: 999px; padding: 5px 12px; font-weight: 500; white-space: nowrap;
+  }
+
+  .kpis {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 40px;
+  }
+  @media (max-width: 720px) { .kpis { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 460px) { .kpis { grid-template-columns: 1fr; } }
+  .kpi {
+    background: var(--surface-raised); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px 18px; position: relative; overflow: hidden;
+  }
+  .kpi::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--kpi-accent, var(--baseline));
+  }
+  .kpi .label { font-size: 12px; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+  .kpi .value { font-size: 24px; font-weight: 600; margin-top: 6px; }
+  .kpi .value.negative { color: var(--negative); }
+  .kpi.total { background: var(--accent); }
+  .kpi.total::before { display: none; }
+  .kpi.total .label { color: rgba(255,255,255,0.75); }
+  .kpi.total .value { color: #fff; font-size: 28px; }
+
+  section.block { margin-bottom: 48px; }
+  .block-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 20px; margin-bottom: 4px; }
+  .block-head h2 { font-size: 21px; }
+  .block-note { color: var(--ink-secondary); font-size: 13.5px; margin: 6px 0 18px; max-width: 62ch; }
+
+  .table-scroll { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-raised); }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; min-width: 560px; }
+  thead th {
+    text-align: left; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;
+    color: var(--ink-muted); padding: 10px 14px; border-bottom: 1px solid var(--border); background: var(--surface);
+    position: sticky; top: 0;
+  }
+  thead th.num-col, td.num-col { text-align: right; }
+  tbody td { padding: 8px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  tbody tr:last-child td { border-bottom: none; }
+  tr.cat-row td { background: var(--surface); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-secondary); padding-top: 10px; padding-bottom: 6px; }
+  tr.subtotal-row td { font-weight: 600; background: var(--accent-soft); }
+  tr.grand-row td { font-weight: 700; background: var(--accent); color: #fff; }
+  tr.grand-row .bar-cell, tr.subtotal-row .bar-cell, tr.cat-row .bar-cell { display: none; }
+
+  .entity-badge {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--ink-secondary);
+  }
+  .entity-dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+
+  .bar-cell { width: 34%; min-width: 140px; }
+  .bar-track { position: relative; height: 8px; background: var(--grid); border-radius: 4px; overflow: hidden; }
+  .bar-fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 4px; }
+  .bar-fill.negative { left: auto; right: 50%; background: var(--negative); }
+
+  .amount { font-family: "IBM Plex Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; font-weight: 500; }
+  .amount.negative { color: var(--negative); }
+
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 12px; margin-bottom: 8px; }
+  .bcard { border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; background: var(--surface-raised); position: relative; overflow: hidden; }
+  .bcard::before { content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background: var(--card-accent, var(--baseline)); }
+  .bcard .entity-row { display:flex; align-items:center; gap:6px; font-size: 11.5px; color: var(--ink-muted); text-transform: uppercase; letter-spacing:.04em; font-weight:600; }
+  .bcard .entity-dot { width:7px; height:7px; border-radius:50%; flex:none; }
+  .bcard .bname { font-size: 13.5px; margin-top: 6px; color: var(--ink-secondary); }
+  .bcard .bval { font-size: 21px; font-weight: 600; margin-top: 6px; font-family: "IBM Plex Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  .bcard .bval.negative { color: var(--negative); }
+  .bcard .mini-track { height: 5px; background: var(--grid); border-radius: 3px; margin-top: 10px; overflow: hidden; }
+  .bcard .mini-fill { height: 100%; border-radius: 3px; background: var(--card-accent, var(--baseline)); }
+
+  .grand-strip {
+    display: flex; justify-content: space-between; align-items: baseline; background: var(--accent);
+    color: #fff; border-radius: 10px; padding: 14px 18px; margin-top: 14px; font-weight: 700;
+  }
+  .grand-strip .num { font-size: 18px; }
+
+  .chart-card {
+    background: var(--surface-raised); border: 1px solid var(--border); border-radius: 10px;
+    padding: 20px 20px 8px; margin-bottom: 18px;
+  }
+  .chart-legend { display: flex; gap: 18px; flex-wrap: wrap; margin-bottom: 4px; font-size: 13px; color: var(--ink-secondary); }
+  svg.payables-svg { width: 100%; height: auto; display: block; }
+  svg.payables-svg .grid { stroke: var(--grid); stroke-width: 1; }
+  svg.payables-svg .axis-label-y, svg.payables-svg .axis-label-x { fill: var(--ink-muted); font-size: 11.5px; font-family: "IBM Plex Sans", sans-serif; }
+  svg.payables-svg .axis-label-x { font-weight: 600; fill: var(--ink-secondary); }
+  svg.payables-svg .bar-label { fill: var(--ink); font-size: 12px; font-weight: 600; font-family: "IBM Plex Mono", monospace; }
+  svg.payables-svg .bar { cursor: pointer; transition: opacity .12s ease; }
+  svg.payables-svg .bar:hover, svg.payables-svg .bar:focus { opacity: 0.75; outline: none; }
+
+  .tooltip {
+    position: fixed; pointer-events: none; background: var(--ink); color: var(--page);
+    font-size: 12.5px; padding: 6px 10px; border-radius: 6px; opacity: 0; transform: translate(-50%, -100%);
+    transition: opacity .1s ease; z-index: 10; white-space: nowrap; font-family: "IBM Plex Mono", monospace;
+  }
+  .tooltip.show { opacity: 0.96; }
+
+  footer {
+    border-top: 1px solid var(--border); padding-top: 18px; margin-top: 8px;
+    font-size: 12.5px; color: var(--ink-muted); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 20px;
+  }
+
+  @media (max-width: 640px) {
+    .masthead { flex-direction: column; align-items: flex-start; }
+    .masthead-meta { align-items: flex-start; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="masthead-title">
+      <div class="eyebrow">Daily Treasury Position</div>
+      <h1>Doli Group</h1>
+      <div class="sub">Consolidated cash &amp; short-term payables — Doliflex + Avittal · balances converted at 2,350 CDF/USD</div>
+    </div>
+    <div class="masthead-meta">
+      <div class="legend">
+        <span class="legend-item"><span class="swatch" style="background:var(--cat-violet)"></span>Doliflex</span>
+        <span class="legend-item"><span class="swatch" style="background:var(--cat-magenta)"></span>Avittal</span>
+        <span class="legend-item"><span class="swatch" style="background:var(--cat-green)"></span>Doli Group HQ</span>
+      </div>
+      <span class="refresh-note">Auto-refreshed hourly · last pulled 11 Sep 2026 11:00 Beirut time</span>
+    </div>
+  </header>
+
+  <section class="kpis">
+    <div class="kpi total"><div class="label">Total DoliGroup</div><div class="value">$1,483,763</div></div>
+    <div class="kpi" style="--kpi-accent:var(--cat-violet)"><div class="label">Total Doliflex</div><div class="value">$1,351,192</div></div>
+    <div class="kpi" style="--kpi-accent:var(--cat-magenta)"><div class="label">Total Avittal</div><div class="value">$130,781</div></div>
+    <div class="kpi"><div class="label">Total Cash</div><div class="value">$65,259</div></div>
+    <div class="kpi"><div class="label">Total Banks</div><div class="value">$1,226,739</div></div>
+    <div class="kpi"><div class="label">Total Financial Institutions</div><div class="value">$226,514</div></div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <h2>Cash Position</h2>
+    </div>
+
+    <h3 style="font-size:15px;margin-bottom:6px;">Bank Balances</h3>
+    <p class="block-note">6 bank accounts, $1,226,740 total. Largest — Equity Bank Rwanda Doliflex · Doliflex at $1,076,599.</p>
+    <div class="card-grid" id="bank-card-grid"></div>
+
+    <h3 style="font-size:15px;margin:26px 0 6px;">Cash &amp; Financial Institution Accounts</h3>
+    <p class="block-note">14 accounts across Beirut, Bukavu, Butembo, Goma, grouped by account type. Bars are scaled to the largest single account — Aslam Bukavu · Avittal at $88,542.</p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Account</th>
+            <th>Location</th>
+            <th>Entity</th>
+            <th class="bar-cell">Balance</th>
+            <th class="num-col">Balance (USD)</th>
+          </tr>
+        </thead>
+        <tbody id="cash-table-body"></tbody>
+      </table>
+    </div>
+
+    <div class="grand-strip"><span>Total DoliGroup</span><span class="num">$1,483,763</span></div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <h2>Short-Term Payables</h2>
+    </div>
+    <p class="block-note">$8,493,293 in tracked payables across 4 departments, by settlement stage and payment method.</p>
+
+    <div class="chart-card">
+      <div class="chart-legend">
+        <span class="legend-item"><span class="swatch" style="background:var(--cat-blue)"></span>Cash</span>
+        <span class="legend-item"><span class="swatch" style="background:var(--cat-orange)"></span>Aslam (mobile money)</span>
+        <span class="legend-item"><span class="swatch" style="background:var(--cat-aqua)"></span>Bank</span>
+      </div>
+      <svg class="payables-svg" viewBox="0 0 780 420" role="img" aria-label="Grouped bar chart of short-term payables by stage and payment method">
+        <line class="grid" x1="66" x2="760" y1="364.0" y2="364.0" />
+        <text class="axis-label-y" x="58" y="368.0" text-anchor="end">$0</text>
+        <line class="grid" x1="66" x2="760" y1="279.0" y2="279.0" />
+        <text class="axis-label-y" x="58" y="283.0" text-anchor="end">$1.25M</text>
+        <line class="grid" x1="66" x2="760" y1="194.0" y2="194.0" />
+        <text class="axis-label-y" x="58" y="198.0" text-anchor="end">$2.50M</text>
+        <line class="grid" x1="66" x2="760" y1="109.0" y2="109.0" />
+        <text class="axis-label-y" x="58" y="113.0" text-anchor="end">$3.75M</text>
+        <line class="grid" x1="66" x2="760" y1="24.0" y2="24.0" />
+        <text class="axis-label-y" x="58" y="28.0" text-anchor="end">$5.00M</text>
+
+        <rect class="bar" tabindex="0" data-stage="Pending" data-method="Cash" data-value="9572.00" x="115.7" y="362.5" width="40" height="1.5" rx="4" fill="var(--cat-blue)"><title>Pending · Cash: $9,572</title></rect>
+        <rect class="bar" tabindex="0" data-stage="Pending" data-method="Aslam" data-value="44255.00" x="161.7" y="361.0" width="40" height="3.0" rx="4" fill="var(--cat-orange)"><title>Pending · Aslam: $44,255</title></rect>
+        <rect class="bar" tabindex="0" data-stage="Pending" data-method="Bank" data-value="1529297.00" x="207.7" y="260.0" width="40" height="104.0" rx="4" fill="var(--cat-aqua)"><title>Pending · Bank: $1,529,297</title></rect>
+        <rect class="bar" tabindex="0" data-stage="In Progress" data-method="Cash" data-value="7328.00" x="347.0" y="362.5" width="40" height="1.5" rx="4" fill="var(--cat-blue)"><title>In Progress · Cash: $7,328</title></rect>
+        <rect class="bar" tabindex="0" data-stage="In Progress" data-method="Aslam" data-value="2570.00" x="393.0" y="362.5" width="40" height="1.5" rx="4" fill="var(--cat-orange)"><title>In Progress · Aslam: $2,570</title></rect>
+        <rect class="bar" tabindex="0" data-stage="In Progress" data-method="Bank" data-value="0.00" x="439.0" y="362.5" width="40" height="1.5" rx="4" fill="var(--cat-aqua)"><title>In Progress · Bank: $0</title></rect>
+        <rect class="bar" tabindex="0" data-stage="Completed" data-method="Cash" data-value="3441049.00" x="578.3" y="130.0" width="40" height="234.0" rx="4" fill="var(--cat-blue)"><title>Completed · Cash: $3,441,049</title></rect>
+        <rect class="bar" tabindex="0" data-stage="Completed" data-method="Aslam" data-value="861383.00" x="624.3" y="305.4" width="40" height="58.6" rx="4" fill="var(--cat-orange)"><title>Completed · Aslam: $861,383</title></rect>
+        <rect class="bar" tabindex="0" data-stage="Completed" data-method="Bank" data-value="2597839.00" x="670.3" y="187.3" width="40" height="176.7" rx="4" fill="var(--cat-aqua)"><title>Completed · Bank: $2,597,839</title></rect>
+
+        <text class="bar-label" x="227.7" y="252.0" text-anchor="middle">$1.53M</text>
+        <text class="bar-label" x="598.3" y="122.0" text-anchor="middle">$3.44M</text>
+        <text class="bar-label" x="644.3" y="297.4" text-anchor="middle">$861K</text>
+        <text class="bar-label" x="690.3" y="179.3" text-anchor="middle">$2.60M</text>
+        <text class="axis-label-x" x="181.7" y="386" text-anchor="middle">Pending</text>
+        <text class="axis-label-x" x="413.0" y="386" text-anchor="middle">In Progress</text>
+        <text class="axis-label-x" x="644.3" y="386" text-anchor="middle">Completed</text>
+      </svg>
+    </div>
+
+    <div class="table-scroll" style="margin-bottom:18px;">
+      <table>
+        <thead>
+          <tr><th>Method</th><th class="num-col">Pending</th><th class="num-col">In Progress</th><th class="num-col">Completed</th><th class="num-col">Total</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="entity-badge"><span class="entity-dot" style="background:var(--cat-blue)"></span>Cash</span></td>
+            <td class="num-col amount">$9,572</td><td class="num-col amount">$7,328</td><td class="num-col amount">$3,441,049</td><td class="num-col amount">$3,457,949</td>
+          </tr>
+          <tr>
+            <td><span class="entity-badge"><span class="entity-dot" style="background:var(--cat-orange)"></span>Aslam</span></td>
+            <td class="num-col amount">$44,255</td><td class="num-col amount">$2,570</td><td class="num-col amount">$861,383</td><td class="num-col amount">$908,208</td>
+          </tr>
+          <tr>
+            <td><span class="entity-badge"><span class="entity-dot" style="background:var(--cat-aqua)"></span>Bank</span></td>
+            <td class="num-col amount">$1,529,297</td><td class="num-col amount">$0</td><td class="num-col amount">$2,597,839</td><td class="num-col amount">$4,127,136</td>
+          </tr>
+          <tr class="subtotal-row">
+            <td>Total</td>
+            <td class="num-col amount">$1,583,124</td><td class="num-col amount">$9,898</td><td class="num-col amount">$6,900,271</td><td class="num-col amount">$8,493,293</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="block-note" style="margin-bottom:10px;">By department and entity:</p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>Department</th><th>Entity</th><th class="num-col">Pending</th><th class="num-col">In Progress</th><th class="num-col">Completed</th><th class="num-col">Total</th></tr>
+        </thead>
+        <tbody id="dept-table-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <span>Source: DoliGroup "Daily Treasury Position" Google Sheet · Data tab · figures roll up ~10 branch/bank sheets via IMPORTRANGE.</span>
+    <span>Auto-updated hourly from the published sheet — no manual refresh needed.</span>
+  </footer>
+
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+  const ENTITY_COLOR = {
+    "Doli Group": "var(--cat-green)",
+    "Doliflex": "var(--cat-violet)",
+    "Avittal": "var(--cat-magenta)"
+  };
+
+  const cashRows = [
+    { cat: "Cash", rows: [
+      { name: 'Cash Goma', loc: 'Goma', entity: 'Doliflex', value: 29189.00 },
+      { name: 'Cash Goma', loc: 'Goma', entity: 'Avittal', value: 16527.00 },
+      { name: 'Cash Bukavu', loc: 'Bukavu', entity: 'Avittal', value: 12407.00 },
+      { name: 'Cash Bukavu', loc: 'Bukavu', entity: 'Doliflex', value: 5246.00 },
+      { name: 'Cash Beirut', loc: 'Beirut', entity: 'Doli Group', value: 1790.00 },
+      { name: 'Cash Butembo', loc: 'Butembo', entity: 'Doliflex', value: 101.00 },
+      { name: 'Cash Coffre General', loc: 'Goma', entity: 'Doliflex', value: 0.00 },
+      { name: 'Cash Butembo', loc: 'Butembo', entity: 'Avittal', value: 0.00 },
+    ], subtotal: 65260.00 },
+    { cat: "Financial Institution", rows: [
+      { name: 'Aslam Bukavu', loc: 'Bukavu', entity: 'Avittal', value: 88542.00 },
+      { name: 'Aslam Bukavu', loc: 'Bukavu', entity: 'Doliflex', value: 55401.00 },
+      { name: 'Aslam Butembo', loc: 'Butembo', entity: 'Doliflex', value: 46685.00 },
+      { name: 'Aslam Butembo', loc: 'Butembo', entity: 'Avittal', value: 34750.00 },
+      { name: 'Soficom Goma', loc: 'Goma', entity: 'Doliflex', value: 1136.00 },
+      { name: 'Aslam Goma', loc: 'Goma', entity: 'Doliflex', value: 0.00 },
+    ], subtotal: 226514.00 },
+  ];
+  const CASH_MAX = 88542.00;
+
+  function fmtUSD(v) {
+    const neg = v < 0;
+    const s = "$" + Math.abs(v).toLocaleString("en-US", { maximumFractionDigits: 0 });
+    return neg ? "-" + s : s;
+  }
+
+  const cashBody = document.getElementById("cash-table-body");
+  cashRows.forEach(group => {
+    const catTr = document.createElement("tr");
+    catTr.className = "cat-row";
+    catTr.innerHTML = `<td colspan="5">${group.cat}</td>`;
+    cashBody.appendChild(catTr);
+
+    group.rows.slice().sort((a,b) => b.value - a.value).forEach(r => {
+      const tr = document.createElement("tr");
+      const pct = Math.max(Math.abs(r.value) / CASH_MAX * 100, r.value !== 0 ? 1.2 : 0);
+      const barHtml = r.value < 0
+        ? `<div class="bar-track"><div class="bar-fill negative" style="width:${Math.min(pct,50).toFixed(1)}%"></div></div>`
+        : `<div class="bar-track"><div class="bar-fill" style="width:${pct.toFixed(1)}%;background:${ENTITY_COLOR[r.entity]}"></div></div>`;
+      tr.innerHTML = `
+        <td>${r.name}</td>
+        <td>${r.loc}</td>
+        <td><span class="entity-badge"><span class="entity-dot" style="background:${ENTITY_COLOR[r.entity]}"></span>${r.entity}</span></td>
+        <td class="bar-cell">${barHtml}</td>
+        <td class="num-col amount${r.value < 0 ? ' negative' : ''}">${fmtUSD(r.value)}</td>
+      `;
+      cashBody.appendChild(tr);
+    });
+
+    const subTr = document.createElement("tr");
+    subTr.className = "subtotal-row";
+    subTr.innerHTML = `<td colspan="4">Total ${group.cat === "Financial Institution" ? "Financial Institutions" : group.cat + (group.cat === "Bank" ? "s" : "")}</td><td class="num-col amount">${fmtUSD(group.subtotal)}</td>`;
+    cashBody.appendChild(subTr);
+  });
+
+  const bankAccounts = [
+    { name: 'Equity Bank Rwanda Doliflex', loc: 'Goma', entity: 'Doliflex', value: 1076599.00 },
+    { name: 'TMB Goma', loc: 'Goma', entity: 'Doliflex', value: 135661.00 },
+    { name: 'Equity Bank Rwanda Avittal', loc: 'Goma', entity: 'Avittal', value: 13305.00 },
+    { name: 'Equity Bilal Kabalan', loc: 'Goma', entity: 'Doliflex', value: 1065.00 },
+    { name: 'Equity Mohammad Kabalan', loc: 'Goma', entity: 'Doliflex', value: 142.00 },
+    { name: 'Access Bank M. Kabalan Rwanda', loc: 'Goma', entity: 'Doliflex', value: -32.00 },
+  ];
+  const BANK_MAX = 1076599.00;
+  const bankGrid = document.getElementById("bank-card-grid");
+  bankAccounts.forEach(a => {
+    const pct = Math.max(Math.abs(a.value) / BANK_MAX * 100, 2);
+    const card = document.createElement("div");
+    card.className = "bcard";
+    card.style.setProperty("--card-accent", ENTITY_COLOR[a.entity]);
+    card.innerHTML = `
+      <div class="entity-row"><span class="entity-dot" style="background:${ENTITY_COLOR[a.entity]}"></span>${a.entity}</div>
+      <div class="bname">${a.name} · ${a.loc}</div>
+      <div class="bval${a.value < 0 ? ' negative' : ''}">${fmtUSD(a.value)}</div>
+      <div class="mini-track"><div class="mini-fill" style="width:${a.value < 0 ? 0 : pct.toFixed(1)}%;background:${a.value < 0 ? 'var(--negative)' : ENTITY_COLOR[a.entity]}"></div></div>
+    `;
+    bankGrid.appendChild(card);
+  });
+
+  const deptRows = [
+    { dept: 'Supply Chain', entity: 'Doliflex', pending: 36447.00, inprog: 656.00, completed: 724806.00 },
+    { dept: 'Supply Chain', entity: 'Avittal', pending: 23237.00, inprog: 2570.00, completed: 628525.00 },
+    { dept: 'Office Administration', entity: 'Doliflex', pending: 0.00, inprog: 0.00, completed: 1207328.00 },
+    { dept: 'Office Administration', entity: 'Avittal', pending: 0.00, inprog: 0.00, completed: 0.00 },
+    { dept: 'HR', entity: 'Doliflex', pending: 0.00, inprog: 3350.00, completed: 435530.00 },
+    { dept: 'HR', entity: 'Avittal', pending: 250.00, inprog: 635.00, completed: 935218.00 },
+    { dept: 'Administration', entity: 'Doliflex', pending: 1523190.00, inprog: 1131.00, completed: 2968864.00 },
+    { dept: 'Administration', entity: 'Avittal', pending: 0.00, inprog: 1556.00, completed: 0.00 },
+  ];
+  const deptBody = document.getElementById("dept-table-body");
+  deptRows.forEach(r => {
+    const total = r.pending + r.inprog + r.completed;
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${r.dept}</td>
+      <td><span class="entity-badge"><span class="entity-dot" style="background:${ENTITY_COLOR[r.entity]}"></span>${r.entity}</span></td>
+      <td class="num-col amount">${fmtUSD(r.pending)}</td>
+      <td class="num-col amount">${fmtUSD(r.inprog)}</td>
+      <td class="num-col amount">${fmtUSD(r.completed)}</td>
+      <td class="num-col amount">${fmtUSD(total)}</td>
+    `;
+    deptBody.appendChild(tr);
+  });
+  const deptGrand = document.createElement("tr");
+  deptGrand.className = "grand-row";
+  deptGrand.innerHTML = `<td colspan="2">Total</td><td class="num-col amount">$1,583,124</td><td class="num-col amount">$9,898</td><td class="num-col amount">$6,900,271</td><td class="num-col amount">$8,493,293</td>`;
+  deptBody.appendChild(deptGrand);
+
+  // Tooltip on payables chart bars
+  const tooltip = document.getElementById("tooltip");
+  document.querySelectorAll("svg.payables-svg .bar").forEach(bar => {
+    const show = (e) => {
+      const stage = bar.getAttribute("data-stage");
+      const method = bar.getAttribute("data-method");
+      const val = parseFloat(bar.getAttribute("data-value"));
+      tooltip.textContent = `${stage} · ${method}: ${fmtUSD(Math.round(val))}`;
+      tooltip.classList.add("show");
+      const pt = e.touches ? e.touches[0] : e;
+      tooltip.style.left = pt.clientX + "px";
+      tooltip.style.top = (pt.clientY - 12) + "px";
+    };
+    bar.addEventListener("mousemove", show);
+    bar.addEventListener("mouseenter", show);
+    bar.addEventListener("focus", show);
+    bar.addEventListener("mouseleave", () => tooltip.classList.remove("show"));
+    bar.addEventListener("blur", () => tooltip.classList.remove("show"));
+  });
+</script>
+
+</body></html>
