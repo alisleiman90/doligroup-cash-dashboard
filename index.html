@@ -216,7 +216,7 @@
         <span class="legend-item"><span class="swatch" style="background:var(--cat-magenta)"></span>Avittal</span>
         <span class="legend-item"><span class="swatch" style="background:var(--cat-green)"></span>Doli Group HQ</span>
       </div>
-      <span class="refresh-note">Auto-refreshed hourly · last pulled 11 Sep 2026 11:00 Beirut time</span>
+      <span class="refresh-note">Auto-refreshed hourly · last pulled 11 Sep 2026 12:00 Beirut time</span>
     </div>
   </header>
 
@@ -238,22 +238,13 @@
     <p class="block-note">6 bank accounts, $1,226,740 total. Largest — Equity Bank Rwanda Doliflex · Doliflex at $1,076,599.</p>
     <div class="card-grid" id="bank-card-grid"></div>
 
-    <h3 style="font-size:15px;margin:26px 0 6px;">Cash &amp; Financial Institution Accounts</h3>
-    <p class="block-note">14 accounts across Beirut, Bukavu, Butembo, Goma, grouped by account type. Bars are scaled to the largest single account — Aslam Bukavu · Avittal at $88,542.</p>
-    <div class="table-scroll">
-      <table>
-        <thead>
-          <tr>
-            <th>Account</th>
-            <th>Location</th>
-            <th>Entity</th>
-            <th class="bar-cell">Balance</th>
-            <th class="num-col">Balance (USD)</th>
-          </tr>
-        </thead>
-        <tbody id="cash-table-body"></tbody>
-      </table>
-    </div>
+    <h3 style="font-size:15px;margin:26px 0 6px;">Financial Institution Balances</h3>
+    <p class="block-note">6 financial institution accounts, $226,514 total. Largest — Aslam Bukavu · Avittal at $88,542.</p>
+    <div class="card-grid" id="fi-card-grid"></div>
+
+    <h3 style="font-size:15px;margin:26px 0 6px;">Cash Balances</h3>
+    <p class="block-note">8 cash accounts, $65,260 total. Largest — Cash Goma · Doliflex at $29,189.</p>
+    <div class="card-grid" id="cash-card-grid"></div>
 
     <div class="grand-strip"><span>Total DoliGroup</span><span class="num">$1,483,763</span></div>
   </section>
@@ -355,62 +346,28 @@
     "Avittal": "var(--cat-magenta)"
   };
 
-  const cashRows = [
-    { cat: "Cash", rows: [
-      { name: 'Cash Goma', loc: 'Goma', entity: 'Doliflex', value: 29189.00 },
-      { name: 'Cash Goma', loc: 'Goma', entity: 'Avittal', value: 16527.00 },
-      { name: 'Cash Bukavu', loc: 'Bukavu', entity: 'Avittal', value: 12407.00 },
-      { name: 'Cash Bukavu', loc: 'Bukavu', entity: 'Doliflex', value: 5246.00 },
-      { name: 'Cash Beirut', loc: 'Beirut', entity: 'Doli Group', value: 1790.00 },
-      { name: 'Cash Butembo', loc: 'Butembo', entity: 'Doliflex', value: 101.00 },
-      { name: 'Cash Coffre General', loc: 'Goma', entity: 'Doliflex', value: 0.00 },
-      { name: 'Cash Butembo', loc: 'Butembo', entity: 'Avittal', value: 0.00 },
-    ], subtotal: 65260.00 },
-    { cat: "Financial Institution", rows: [
-      { name: 'Aslam Bukavu', loc: 'Bukavu', entity: 'Avittal', value: 88542.00 },
-      { name: 'Aslam Bukavu', loc: 'Bukavu', entity: 'Doliflex', value: 55401.00 },
-      { name: 'Aslam Butembo', loc: 'Butembo', entity: 'Doliflex', value: 46685.00 },
-      { name: 'Aslam Butembo', loc: 'Butembo', entity: 'Avittal', value: 34750.00 },
-      { name: 'Soficom Goma', loc: 'Goma', entity: 'Doliflex', value: 1136.00 },
-      { name: 'Aslam Goma', loc: 'Goma', entity: 'Doliflex', value: 0.00 },
-    ], subtotal: 226514.00 },
-  ];
-  const CASH_MAX = 88542.00;
-
   function fmtUSD(v) {
     const neg = v < 0;
     const s = "$" + Math.abs(v).toLocaleString("en-US", { maximumFractionDigits: 0 });
     return neg ? "-" + s : s;
   }
 
-  const cashBody = document.getElementById("cash-table-body");
-  cashRows.forEach(group => {
-    const catTr = document.createElement("tr");
-    catTr.className = "cat-row";
-    catTr.innerHTML = `<td colspan="5">${group.cat}</td>`;
-    cashBody.appendChild(catTr);
-
-    group.rows.slice().sort((a,b) => b.value - a.value).forEach(r => {
-      const tr = document.createElement("tr");
-      const pct = Math.max(Math.abs(r.value) / CASH_MAX * 100, r.value !== 0 ? 1.2 : 0);
-      const barHtml = r.value < 0
-        ? `<div class="bar-track"><div class="bar-fill negative" style="width:${Math.min(pct,50).toFixed(1)}%"></div></div>`
-        : `<div class="bar-track"><div class="bar-fill" style="width:${pct.toFixed(1)}%;background:${ENTITY_COLOR[r.entity]}"></div></div>`;
-      tr.innerHTML = `
-        <td>${r.name}</td>
-        <td>${r.loc}</td>
-        <td><span class="entity-badge"><span class="entity-dot" style="background:${ENTITY_COLOR[r.entity]}"></span>${r.entity}</span></td>
-        <td class="bar-cell">${barHtml}</td>
-        <td class="num-col amount${r.value < 0 ? ' negative' : ''}">${fmtUSD(r.value)}</td>
+  function renderCardGrid(containerId, accounts, max) {
+    const grid = document.getElementById(containerId);
+    accounts.forEach(a => {
+      const pct = Math.max(Math.abs(a.value) / max * 100, 2);
+      const card = document.createElement("div");
+      card.className = "bcard";
+      card.style.setProperty("--card-accent", ENTITY_COLOR[a.entity]);
+      card.innerHTML = `
+        <div class="entity-row"><span class="entity-dot" style="background:${ENTITY_COLOR[a.entity]}"></span>${a.entity}</div>
+        <div class="bname">${a.name} · ${a.loc}</div>
+        <div class="bval${a.value < 0 ? ' negative' : ''}">${fmtUSD(a.value)}</div>
+        <div class="mini-track"><div class="mini-fill" style="width:${a.value < 0 ? 0 : pct.toFixed(1)}%;background:${a.value < 0 ? 'var(--negative)' : ENTITY_COLOR[a.entity]}"></div></div>
       `;
-      cashBody.appendChild(tr);
+      grid.appendChild(card);
     });
-
-    const subTr = document.createElement("tr");
-    subTr.className = "subtotal-row";
-    subTr.innerHTML = `<td colspan="4">Total ${group.cat === "Financial Institution" ? "Financial Institutions" : group.cat + (group.cat === "Bank" ? "s" : "")}</td><td class="num-col amount">${fmtUSD(group.subtotal)}</td>`;
-    cashBody.appendChild(subTr);
-  });
+  }
 
   const bankAccounts = [
     { name: 'Equity Bank Rwanda Doliflex', loc: 'Goma', entity: 'Doliflex', value: 1076599.00 },
@@ -421,20 +378,31 @@
     { name: 'Access Bank M. Kabalan Rwanda', loc: 'Goma', entity: 'Doliflex', value: -32.00 },
   ];
   const BANK_MAX = 1076599.00;
-  const bankGrid = document.getElementById("bank-card-grid");
-  bankAccounts.forEach(a => {
-    const pct = Math.max(Math.abs(a.value) / BANK_MAX * 100, 2);
-    const card = document.createElement("div");
-    card.className = "bcard";
-    card.style.setProperty("--card-accent", ENTITY_COLOR[a.entity]);
-    card.innerHTML = `
-      <div class="entity-row"><span class="entity-dot" style="background:${ENTITY_COLOR[a.entity]}"></span>${a.entity}</div>
-      <div class="bname">${a.name} · ${a.loc}</div>
-      <div class="bval${a.value < 0 ? ' negative' : ''}">${fmtUSD(a.value)}</div>
-      <div class="mini-track"><div class="mini-fill" style="width:${a.value < 0 ? 0 : pct.toFixed(1)}%;background:${a.value < 0 ? 'var(--negative)' : ENTITY_COLOR[a.entity]}"></div></div>
-    `;
-    bankGrid.appendChild(card);
-  });
+  renderCardGrid("bank-card-grid", bankAccounts, BANK_MAX);
+
+  const fiAccounts = [
+    { name: 'Aslam Bukavu', loc: 'Bukavu', entity: 'Avittal', value: 88542.00 },
+    { name: 'Aslam Bukavu', loc: 'Bukavu', entity: 'Doliflex', value: 55401.00 },
+    { name: 'Aslam Butembo', loc: 'Butembo', entity: 'Doliflex', value: 46685.00 },
+    { name: 'Aslam Butembo', loc: 'Butembo', entity: 'Avittal', value: 34750.00 },
+    { name: 'Soficom Goma', loc: 'Goma', entity: 'Doliflex', value: 1136.00 },
+    { name: 'Aslam Goma', loc: 'Goma', entity: 'Doliflex', value: 0.00 },
+  ];
+  const FI_MAX = 88542.00;
+  renderCardGrid("fi-card-grid", fiAccounts, FI_MAX);
+
+  const cashAccounts = [
+    { name: 'Cash Goma', loc: 'Goma', entity: 'Doliflex', value: 29189.00 },
+    { name: 'Cash Goma', loc: 'Goma', entity: 'Avittal', value: 16527.00 },
+    { name: 'Cash Bukavu', loc: 'Bukavu', entity: 'Avittal', value: 12407.00 },
+    { name: 'Cash Bukavu', loc: 'Bukavu', entity: 'Doliflex', value: 5246.00 },
+    { name: 'Cash Beirut', loc: 'Beirut', entity: 'Doli Group', value: 1790.00 },
+    { name: 'Cash Butembo', loc: 'Butembo', entity: 'Doliflex', value: 101.00 },
+    { name: 'Cash Coffre General', loc: 'Goma', entity: 'Doliflex', value: 0.00 },
+    { name: 'Cash Butembo', loc: 'Butembo', entity: 'Avittal', value: 0.00 },
+  ];
+  const CASH_MAX = 29189.00;
+  renderCardGrid("cash-card-grid", cashAccounts, CASH_MAX);
 
   const deptRows = [
     { dept: 'Supply Chain', entity: 'Doliflex', pending: 36447.00, inprog: 656.00, completed: 724806.00 },
