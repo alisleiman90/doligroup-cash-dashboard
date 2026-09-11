@@ -165,6 +165,16 @@
   .bcard .mini-track { height: 5px; background: var(--grid); border-radius: 3px; margin-top: 10px; overflow: hidden; }
   .bcard .mini-fill { height: 100%; border-radius: 3px; background: var(--card-accent, var(--baseline)); }
 
+  .stat-row { display: flex; flex-wrap: wrap; gap: 12px; margin: 12px 0 26px; }
+  .stat-box {
+    flex: 0 1 220px; background: var(--surface-raised); border: 1px solid var(--border); border-radius: 10px;
+    padding: 12px 16px; position: relative; overflow: hidden;
+  }
+  .stat-box::before { content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background: var(--stat-accent, var(--baseline)); }
+  .stat-box .label { font-size: 11px; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+  .stat-box .value { font-size: 19px; font-weight: 600; margin-top: 4px; font-family: "IBM Plex Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  .stat-box .value.negative { color: var(--negative); }
+
   .grand-strip {
     display: flex; justify-content: space-between; align-items: baseline; background: var(--accent);
     color: #fff; border-radius: 10px; padding: 14px 18px; margin-top: 14px; font-weight: 700;
@@ -216,7 +226,7 @@
         <span class="legend-item"><span class="swatch" style="background:var(--cat-magenta)"></span>Avittal</span>
         <span class="legend-item"><span class="swatch" style="background:var(--cat-green)"></span>Doli Group HQ</span>
       </div>
-      <span class="refresh-note">Auto-refreshed hourly · last pulled 11 Sep 2026 12:00 Beirut time</span>
+      <span class="refresh-note">Auto-refreshed hourly · last pulled 11 Sep 2026 13:00 Beirut time</span>
     </div>
   </header>
 
@@ -237,14 +247,24 @@
     <h3 style="font-size:15px;margin-bottom:6px;">Bank Balances</h3>
     <p class="block-note">6 bank accounts, $1,226,740 total. Largest — Equity Bank Rwanda Doliflex · Doliflex at $1,076,599.</p>
     <div class="card-grid" id="bank-card-grid"></div>
+    <div class="stat-row">
+      <div class="stat-box"><div class="label">Total Banks</div><div class="value">$1,226,739</div></div>
+    </div>
 
     <h3 style="font-size:15px;margin:26px 0 6px;">Financial Institution Balances</h3>
     <p class="block-note">6 financial institution accounts, $226,514 total. Largest — Aslam Bukavu · Avittal at $88,542.</p>
     <div class="card-grid" id="fi-card-grid"></div>
+    <div class="stat-row">
+      <div class="stat-box"><div class="label">Total Aslam</div><div class="value">$225,378</div></div>
+    </div>
 
     <h3 style="font-size:15px;margin:26px 0 6px;">Cash Balances</h3>
     <p class="block-note">8 cash accounts, $65,260 total. Largest — Cash Goma · Doliflex at $29,189.</p>
     <div class="card-grid" id="cash-card-grid"></div>
+    <div class="stat-row">
+      <div class="stat-box" style="--stat-accent:var(--cat-violet)"><div class="label">Total Cash Doliflex</div><div class="value">$34,536</div></div>
+      <div class="stat-box" style="--stat-accent:var(--cat-magenta)"><div class="label">Total Cash Avittal</div><div class="value">$28,934</div></div>
+    </div>
 
     <div class="grand-strip"><span>Total DoliGroup</span><span class="num">$1,483,763</span></div>
   </section>
