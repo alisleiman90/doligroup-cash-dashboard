@@ -92,6 +92,8 @@
   }
   .masthead-title h1 { font-size: clamp(28px, 4vw, 38px); }
   .masthead-title .sub { color: var(--ink-secondary); font-size: 14.5px; margin-top: 6px; }
+  .brand-logos { display: flex; align-items: center; gap: 14px; margin-top: 14px; }
+  .brand-logo { height: 34px; width: auto; display: block; border-radius: 6px; }
   .masthead-meta { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
   .legend { display: flex; flex-wrap: wrap; gap: 14px; }
   .legend-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ink-secondary); }
@@ -219,6 +221,10 @@
       <div class="eyebrow">Daily Treasury Position</div>
       <h1>Doli Group</h1>
       <div class="sub">Consolidated cash &amp; short-term payables — Doliflex + Avittal · balances converted at 2,350 CDF/USD</div>
+      <div class="brand-logos">
+        <img class="brand-logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACklEQVR4nGMAAQAABQABpfZFQAAAAABJRU5ErkJggg==" alt="Doliflex">
+        <img class="brand-logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACklEQVR4nGMAAQAABQABpfZFQAAAAABJRU5ErkJggg==" alt="Avittal">
+      </div>
     </div>
     <div class="masthead-meta">
       <div class="legend">
@@ -226,17 +232,17 @@
         <span class="legend-item"><span class="swatch" style="background:var(--cat-magenta)"></span>Avittal</span>
         <span class="legend-item"><span class="swatch" style="background:var(--cat-green)"></span>Doli Group HQ</span>
       </div>
-      <span class="refresh-note">Auto-refreshed hourly · last pulled 11 Sep 2026 13:00 Beirut time</span>
+      <span class="refresh-note">Auto-refreshed hourly · last pulled 25 Sep 2026 14:19 Beirut time</span>
     </div>
   </header>
 
   <section class="kpis">
-    <div class="kpi total"><div class="label">Total DoliGroup</div><div class="value">$1,483,763</div></div>
-    <div class="kpi" style="--kpi-accent:var(--cat-violet)"><div class="label">Total Doliflex</div><div class="value">$1,351,192</div></div>
-    <div class="kpi" style="--kpi-accent:var(--cat-magenta)"><div class="label">Total Avittal</div><div class="value">$130,781</div></div>
-    <div class="kpi"><div class="label">Total Cash</div><div class="value">$65,259</div></div>
-    <div class="kpi"><div class="label">Total Banks</div><div class="value">$1,226,739</div></div>
-    <div class="kpi"><div class="label">Total Financial Institutions</div><div class="value">$226,514</div></div>
+    <div class="kpi total"><div class="label">Total DoliGroup</div><div class="value">$1,103,502</div></div>
+    <div class="kpi" style="--kpi-accent:var(--cat-violet)"><div class="label">Total Doliflex</div><div class="value">$873,967</div></div>
+    <div class="kpi" style="--kpi-accent:var(--cat-magenta)"><div class="label">Total Avittal</div><div class="value">$228,631</div></div>
+    <div class="kpi"><div class="label">Total Cash</div><div class="value">$78,788</div></div>
+    <div class="kpi"><div class="label">Total Banks</div><div class="value">$758,777</div></div>
+    <div class="kpi"><div class="label">Total Financial Institutions</div><div class="value">$300,687</div></div>
   </section>
 
   <section class="block">
@@ -245,35 +251,35 @@
     </div>
 
     <h3 style="font-size:15px;margin-bottom:6px;">Bank Balances</h3>
-    <p class="block-note">6 bank accounts, $1,226,740 total. Largest — Equity Bank Rwanda Doliflex · Doliflex at $1,076,599.</p>
+    <p class="block-note">6 bank accounts, $758,777 total. Largest — Equity Bank Rwanda Doliflex · Doliflex at $640,055.</p>
     <div class="card-grid" id="bank-card-grid"></div>
     <div class="stat-row">
-      <div class="stat-box"><div class="label">Total Banks</div><div class="value">$1,226,739</div></div>
+      <div class="stat-box"><div class="label">Total Banks</div><div class="value">$758,777</div></div>
     </div>
 
     <h3 style="font-size:15px;margin:26px 0 6px;">Financial Institution Balances</h3>
-    <p class="block-note">6 financial institution accounts, $226,514 total. Largest — Aslam Bukavu · Avittal at $88,542.</p>
+    <p class="block-note">6 financial institution accounts, $300,687 total. Largest — Aslam Bukavu · Avittal at $188,842.</p>
     <div class="card-grid" id="fi-card-grid"></div>
     <div class="stat-row">
-      <div class="stat-box"><div class="label">Total Aslam</div><div class="value">$225,378</div></div>
+      <div class="stat-box"><div class="label">Total Aslam</div><div class="value">$299,551</div></div>
     </div>
 
     <h3 style="font-size:15px;margin:26px 0 6px;">Cash Balances</h3>
-    <p class="block-note">8 cash accounts, $65,260 total. Largest — Cash Goma · Doliflex at $29,189.</p>
+    <p class="block-note">8 cash accounts, $78,788 total. Largest — Cash Goma · Doliflex at $42,218.</p>
     <div class="card-grid" id="cash-card-grid"></div>
     <div class="stat-row">
-      <div class="stat-box" style="--stat-accent:var(--cat-violet)"><div class="label">Total Cash Doliflex</div><div class="value">$34,536</div></div>
-      <div class="stat-box" style="--stat-accent:var(--cat-magenta)"><div class="label">Total Cash Avittal</div><div class="value">$28,934</div></div>
+      <div class="stat-box" style="--stat-accent:var(--cat-violet)"><div class="label">Total Cash Doliflex</div><div class="value">$59,300</div></div>
+      <div class="stat-box" style="--stat-accent:var(--cat-magenta)"><div class="label">Total Cash Avittal</div><div class="value">$18,584</div></div>
     </div>
 
-    <div class="grand-strip"><span>Total DoliGroup</span><span class="num">$1,483,763</span></div>
+    <div class="grand-strip"><span>Total DoliGroup</span><span class="num">$1,103,502</span></div>
   </section>
 
   <section class="block">
     <div class="block-head">
       <h2>Short-Term Payables</h2>
     </div>
-    <p class="block-note">$8,493,293 in tracked payables across 4 departments, by settlement stage and payment method.</p>
+    <p class="block-note">$8,759,351 in tracked payables across 4 departments, by settlement stage and payment method.</p>
 
     <div class="chart-card">
       <div class="chart-legend">
@@ -293,20 +299,20 @@
         <line class="grid" x1="66" x2="760" y1="24.0" y2="24.0" />
         <text class="axis-label-y" x="58" y="28.0" text-anchor="end">$5.00M</text>
 
-        <rect class="bar" tabindex="0" data-stage="Pending" data-method="Cash" data-value="9572.00" x="115.7" y="362.5" width="40" height="1.5" rx="4" fill="var(--cat-blue)"><title>Pending · Cash: $9,572</title></rect>
-        <rect class="bar" tabindex="0" data-stage="Pending" data-method="Aslam" data-value="44255.00" x="161.7" y="361.0" width="40" height="3.0" rx="4" fill="var(--cat-orange)"><title>Pending · Aslam: $44,255</title></rect>
-        <rect class="bar" tabindex="0" data-stage="Pending" data-method="Bank" data-value="1529297.00" x="207.7" y="260.0" width="40" height="104.0" rx="4" fill="var(--cat-aqua)"><title>Pending · Bank: $1,529,297</title></rect>
-        <rect class="bar" tabindex="0" data-stage="In Progress" data-method="Cash" data-value="7328.00" x="347.0" y="362.5" width="40" height="1.5" rx="4" fill="var(--cat-blue)"><title>In Progress · Cash: $7,328</title></rect>
-        <rect class="bar" tabindex="0" data-stage="In Progress" data-method="Aslam" data-value="2570.00" x="393.0" y="362.5" width="40" height="1.5" rx="4" fill="var(--cat-orange)"><title>In Progress · Aslam: $2,570</title></rect>
-        <rect class="bar" tabindex="0" data-stage="In Progress" data-method="Bank" data-value="0.00" x="439.0" y="362.5" width="40" height="1.5" rx="4" fill="var(--cat-aqua)"><title>In Progress · Bank: $0</title></rect>
-        <rect class="bar" tabindex="0" data-stage="Completed" data-method="Cash" data-value="3441049.00" x="578.3" y="130.0" width="40" height="234.0" rx="4" fill="var(--cat-blue)"><title>Completed · Cash: $3,441,049</title></rect>
-        <rect class="bar" tabindex="0" data-stage="Completed" data-method="Aslam" data-value="861383.00" x="624.3" y="305.4" width="40" height="58.6" rx="4" fill="var(--cat-orange)"><title>Completed · Aslam: $861,383</title></rect>
-        <rect class="bar" tabindex="0" data-stage="Completed" data-method="Bank" data-value="2597839.00" x="670.3" y="187.3" width="40" height="176.7" rx="4" fill="var(--cat-aqua)"><title>Completed · Bank: $2,597,839</title></rect>
+        <rect class="bar" tabindex="0" data-stage="Pending" data-method="Cash" data-value="6212.00" x="115.7" y="362.5" width="40" height="1.5" rx="4" fill="var(--cat-blue)"><title>Pending · Cash: $6,212</title></rect>
+        <rect class="bar" tabindex="0" data-stage="Pending" data-method="Aslam" data-value="44297.00" x="161.7" y="361.0" width="40" height="3.0" rx="4" fill="var(--cat-orange)"><title>Pending · Aslam: $44,297</title></rect>
+        <rect class="bar" tabindex="0" data-stage="Pending" data-method="Bank" data-value="1065680.00" x="207.7" y="291.5" width="40" height="72.5" rx="4" fill="var(--cat-aqua)"><title>Pending · Bank: $1,065,680</title></rect>
+        <rect class="bar" tabindex="0" data-stage="In Progress" data-method="Cash" data-value="4177.00" x="347.0" y="362.5" width="40" height="1.5" rx="4" fill="var(--cat-blue)"><title>In Progress · Cash: $4,177</title></rect>
+        <rect class="bar" tabindex="0" data-stage="In Progress" data-method="Aslam" data-value="6400.00" x="393.0" y="362.5" width="40" height="1.5" rx="4" fill="var(--cat-orange)"><title>In Progress · Aslam: $6,400</title></rect>
+        <rect class="bar" tabindex="0" data-stage="In Progress" data-method="Bank" data-value="1825.00" x="439.0" y="362.5" width="40" height="1.5" rx="4" fill="var(--cat-aqua)"><title>In Progress · Bank: $1,825</title></rect>
+        <rect class="bar" tabindex="0" data-stage="Completed" data-method="Cash" data-value="3479116.00" x="578.3" y="127.4" width="40" height="236.6" rx="4" fill="var(--cat-blue)"><title>Completed · Cash: $3,479,116</title></rect>
+        <rect class="bar" tabindex="0" data-stage="Completed" data-method="Aslam" data-value="957537.00" x="624.3" y="298.9" width="40" height="65.1" rx="4" fill="var(--cat-orange)"><title>Completed · Aslam: $957,537</title></rect>
+        <rect class="bar" tabindex="0" data-stage="Completed" data-method="Bank" data-value="3194107.00" x="670.3" y="146.8" width="40" height="217.2" rx="4" fill="var(--cat-aqua)"><title>Completed · Bank: $3,194,107</title></rect>
 
-        <text class="bar-label" x="227.7" y="252.0" text-anchor="middle">$1.53M</text>
-        <text class="bar-label" x="598.3" y="122.0" text-anchor="middle">$3.44M</text>
-        <text class="bar-label" x="644.3" y="297.4" text-anchor="middle">$861K</text>
-        <text class="bar-label" x="690.3" y="179.3" text-anchor="middle">$2.60M</text>
+        <text class="bar-label" x="227.7" y="283.5" text-anchor="middle">$1.07M</text>
+        <text class="bar-label" x="598.3" y="119.4" text-anchor="middle">$3.48M</text>
+        <text class="bar-label" x="644.3" y="290.9" text-anchor="middle">$958K</text>
+        <text class="bar-label" x="690.3" y="138.8" text-anchor="middle">$3.19M</text>
         <text class="axis-label-x" x="181.7" y="386" text-anchor="middle">Pending</text>
         <text class="axis-label-x" x="413.0" y="386" text-anchor="middle">In Progress</text>
         <text class="axis-label-x" x="644.3" y="386" text-anchor="middle">Completed</text>
@@ -321,19 +327,19 @@
         <tbody>
           <tr>
             <td><span class="entity-badge"><span class="entity-dot" style="background:var(--cat-blue)"></span>Cash</span></td>
-            <td class="num-col amount">$9,572</td><td class="num-col amount">$7,328</td><td class="num-col amount">$3,441,049</td><td class="num-col amount">$3,457,949</td>
+            <td class="num-col amount">$6,212</td><td class="num-col amount">$4,177</td><td class="num-col amount">$3,479,116</td><td class="num-col amount">$3,489,505</td>
           </tr>
           <tr>
             <td><span class="entity-badge"><span class="entity-dot" style="background:var(--cat-orange)"></span>Aslam</span></td>
-            <td class="num-col amount">$44,255</td><td class="num-col amount">$2,570</td><td class="num-col amount">$861,383</td><td class="num-col amount">$908,208</td>
+            <td class="num-col amount">$44,297</td><td class="num-col amount">$6,400</td><td class="num-col amount">$957,537</td><td class="num-col amount">$1,008,234</td>
           </tr>
           <tr>
             <td><span class="entity-badge"><span class="entity-dot" style="background:var(--cat-aqua)"></span>Bank</span></td>
-            <td class="num-col amount">$1,529,297</td><td class="num-col amount">$0</td><td class="num-col amount">$2,597,839</td><td class="num-col amount">$4,127,136</td>
+            <td class="num-col amount">$1,065,680</td><td class="num-col amount">$1,825</td><td class="num-col amount">$3,194,107</td><td class="num-col amount">$4,261,612</td>
           </tr>
           <tr class="subtotal-row">
             <td>Total</td>
-            <td class="num-col amount">$1,583,124</td><td class="num-col amount">$9,898</td><td class="num-col amount">$6,900,271</td><td class="num-col amount">$8,493,293</td>
+            <td class="num-col amount">$1,116,189</td><td class="num-col amount">$12,402</td><td class="num-col amount">$7,630,760</td><td class="num-col amount">$8,759,351</td>
           </tr>
         </tbody>
       </table>
@@ -390,48 +396,48 @@
   }
 
   const bankAccounts = [
-    { name: 'Equity Bank Rwanda Doliflex', loc: 'Goma', entity: 'Doliflex', value: 1076599.00 },
-    { name: 'TMB Goma', loc: 'Goma', entity: 'Doliflex', value: 135661.00 },
-    { name: 'Equity Bank Rwanda Avittal', loc: 'Goma', entity: 'Avittal', value: 13305.00 },
-    { name: 'Equity Bilal Kabalan', loc: 'Goma', entity: 'Doliflex', value: 1065.00 },
+    { name: 'Equity Bank Rwanda Doliflex', loc: 'Goma', entity: 'Doliflex', value: 640055.00 },
+    { name: 'TMB Goma', loc: 'Goma', entity: 'Doliflex', value: 96525.00 },
+    { name: 'Equity Bank Rwanda Avittal', loc: 'Goma', entity: 'Avittal', value: 21205.00 },
+    { name: 'Equity Bilal Kabalan', loc: 'Goma', entity: 'Doliflex', value: 882.00 },
     { name: 'Equity Mohammad Kabalan', loc: 'Goma', entity: 'Doliflex', value: 142.00 },
     { name: 'Access Bank M. Kabalan Rwanda', loc: 'Goma', entity: 'Doliflex', value: -32.00 },
   ];
-  const BANK_MAX = 1076599.00;
+  const BANK_MAX = 640055.00;
   renderCardGrid("bank-card-grid", bankAccounts, BANK_MAX);
 
   const fiAccounts = [
-    { name: 'Aslam Bukavu', loc: 'Bukavu', entity: 'Avittal', value: 88542.00 },
-    { name: 'Aslam Bukavu', loc: 'Bukavu', entity: 'Doliflex', value: 55401.00 },
-    { name: 'Aslam Butembo', loc: 'Butembo', entity: 'Doliflex', value: 46685.00 },
+    { name: 'Aslam Bukavu', loc: 'Bukavu', entity: 'Avittal', value: 188842.00 },
+    { name: 'Aslam Butembo', loc: 'Butembo', entity: 'Doliflex', value: 49058.00 },
     { name: 'Aslam Butembo', loc: 'Butembo', entity: 'Avittal', value: 34750.00 },
+    { name: 'Aslam Bukavu', loc: 'Bukavu', entity: 'Doliflex', value: 26901.00 },
     { name: 'Soficom Goma', loc: 'Goma', entity: 'Doliflex', value: 1136.00 },
     { name: 'Aslam Goma', loc: 'Goma', entity: 'Doliflex', value: 0.00 },
   ];
-  const FI_MAX = 88542.00;
+  const FI_MAX = 188842.00;
   renderCardGrid("fi-card-grid", fiAccounts, FI_MAX);
 
   const cashAccounts = [
-    { name: 'Cash Goma', loc: 'Goma', entity: 'Doliflex', value: 29189.00 },
-    { name: 'Cash Goma', loc: 'Goma', entity: 'Avittal', value: 16527.00 },
-    { name: 'Cash Bukavu', loc: 'Bukavu', entity: 'Avittal', value: 12407.00 },
-    { name: 'Cash Bukavu', loc: 'Bukavu', entity: 'Doliflex', value: 5246.00 },
-    { name: 'Cash Beirut', loc: 'Beirut', entity: 'Doli Group', value: 1790.00 },
-    { name: 'Cash Butembo', loc: 'Butembo', entity: 'Doliflex', value: 101.00 },
+    { name: 'Cash Goma', loc: 'Goma', entity: 'Doliflex', value: 42218.00 },
+    { name: 'Cash Goma', loc: 'Goma', entity: 'Avittal', value: 15676.00 },
+    { name: 'Cash Bukavu', loc: 'Bukavu', entity: 'Doliflex', value: 10417.00 },
+    { name: 'Cash Butembo', loc: 'Butembo', entity: 'Doliflex', value: 6665.00 },
+    { name: 'Cash Bukavu', loc: 'Bukavu', entity: 'Avittal', value: 2908.00 },
+    { name: 'Cash Beirut', loc: 'Beirut', entity: 'Doli Group', value: 904.00 },
     { name: 'Cash Coffre General', loc: 'Goma', entity: 'Doliflex', value: 0.00 },
     { name: 'Cash Butembo', loc: 'Butembo', entity: 'Avittal', value: 0.00 },
   ];
-  const CASH_MAX = 29189.00;
+  const CASH_MAX = 42218.00;
   renderCardGrid("cash-card-grid", cashAccounts, CASH_MAX);
 
   const deptRows = [
-    { dept: 'Supply Chain', entity: 'Doliflex', pending: 36447.00, inprog: 656.00, completed: 724806.00 },
-    { dept: 'Supply Chain', entity: 'Avittal', pending: 23237.00, inprog: 2570.00, completed: 628525.00 },
+    { dept: 'Supply Chain', entity: 'Doliflex', pending: 38058.00, inprog: 6400.00, completed: 743270.00 },
+    { dept: 'Supply Chain', entity: 'Avittal', pending: 28184.00, inprog: 1825.00, completed: 758772.00 },
     { dept: 'Office Administration', entity: 'Doliflex', pending: 0.00, inprog: 0.00, completed: 1207328.00 },
     { dept: 'Office Administration', entity: 'Avittal', pending: 0.00, inprog: 0.00, completed: 0.00 },
-    { dept: 'HR', entity: 'Doliflex', pending: 0.00, inprog: 3350.00, completed: 435530.00 },
-    { dept: 'HR', entity: 'Avittal', pending: 250.00, inprog: 635.00, completed: 935218.00 },
-    { dept: 'Administration', entity: 'Doliflex', pending: 1523190.00, inprog: 1131.00, completed: 2968864.00 },
+    { dept: 'HR', entity: 'Doliflex', pending: 0.00, inprog: 1490.00, completed: 445744.00 },
+    { dept: 'HR', entity: 'Avittal', pending: 0.00, inprog: 0.00, completed: 936782.00 },
+    { dept: 'Administration', entity: 'Doliflex', pending: 1049947.00, inprog: 1131.00, completed: 3538864.00 },
     { dept: 'Administration', entity: 'Avittal', pending: 0.00, inprog: 1556.00, completed: 0.00 },
   ];
   const deptBody = document.getElementById("dept-table-body");
@@ -450,7 +456,7 @@
   });
   const deptGrand = document.createElement("tr");
   deptGrand.className = "grand-row";
-  deptGrand.innerHTML = `<td colspan="2">Total</td><td class="num-col amount">$1,583,124</td><td class="num-col amount">$9,898</td><td class="num-col amount">$6,900,271</td><td class="num-col amount">$8,493,293</td>`;
+  deptGrand.innerHTML = `<td colspan="2">Total</td><td class="num-col amount">$1,116,189</td><td class="num-col amount">$12,402</td><td class="num-col amount">$7,630,760</td><td class="num-col amount">$8,759,351</td>`;
   deptBody.appendChild(deptGrand);
 
   // Tooltip on payables chart bars
